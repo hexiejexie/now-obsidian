@@ -2,4 +2,4 @@ This page is linked with my Obsidian instance, future updates will be automatica
 
 Currently feeling motivated. 🫡
 
-Let's test the archive functionality.
+Let's test the archive functionality. This is a small change that will not archive the post!
