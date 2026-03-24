@@ -25,17 +25,25 @@ jobs:
             version: 'v5.0'
           });
           const md = fs.readFileSync('now.md', 'utf8');
+          const lexical = JSON.stringify({
+            root: {
+              children: [{
+                type: 'markdown',
+                version: 1,
+                markdown: md
+              }],
+              direction: null,
+              format: '',
+              indent: 0,
+              type: 'root',
+              version: 1
+            }
+          });
           api.pages.read({id: process.env.PAGE_ID})
             .then(page => api.pages.edit({
               id: page.id,
               updated_at: page.updated_at,
-              mobiledoc: JSON.stringify({
-                version: '0.3.1',
-                markups: [],
-                atoms: [],
-                cards: [['markdown', {markdown: md}]],
-                sections: [[10, 0]]
-              })
+              lexical: lexical
             }))
             .then(() => console.log('Updated'))
             .catch(e => { console.error(e); process.exit(1); });

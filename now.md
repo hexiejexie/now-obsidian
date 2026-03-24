@@ -1,1 +1,1 @@
-I have successfully linked Obsidian.
+I have successfully linked Obsidian. v2
