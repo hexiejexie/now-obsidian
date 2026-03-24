@@ -24,19 +24,18 @@ jobs:
             key: process.env.GHOST_ADMIN_KEY,
             version: 'v5.0'
           });
-          const md = fs.readFileSync('now.md', 'utf8');
+          const rawMd = fs.readFileSync('now.md', 'utf8');
+          const shouldArchive = rawMd.trim().startsWith('---archive---');
+          const md = rawMd.replace(/^---archive---\n?/, '').trim();
 
           async function run() {
-            // Read current now page
             const page = await api.pages.read({id: process.env.PAGE_ID});
 
-            // Only archive if the page has real content
-            if (page.lexical && page.lexical.includes('markdown')) {
+            if (shouldArchive && page.lexical && page.lexical.includes('markdown')) {
               const old = JSON.parse(page.lexical);
               const oldMd = old.root && old.root.children && old.root.children[0] && old.root.children[0].markdown;
 
-              if (oldMd && oldMd.trim().length > 20 && oldMd.trim() !== md.trim()) {
-                // Archive old content as a post with notes tag
+              if (oldMd && oldMd.trim().length > 20) {
                 const date = new Date().toISOString().slice(0,10);
                 await api.posts.add({
                   title: 'Now — ' + date,
@@ -44,11 +43,10 @@ jobs:
                   status: 'draft',
                   tags: [{name: 'notes'}]
                 });
-                console.log('Archived old now page as post');
+                console.log('Archived old now page as draft');
               }
             }
 
-            // Update now page with new content
             const lexical = JSON.stringify({
               root: {
                 children: [{
