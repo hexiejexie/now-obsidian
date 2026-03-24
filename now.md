@@ -1,1 +1,1 @@
-	Working..
+I have successfully linked Obsidian.
