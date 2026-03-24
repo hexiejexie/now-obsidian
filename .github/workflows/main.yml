@@ -25,26 +25,52 @@ jobs:
             version: 'v5.0'
           });
           const md = fs.readFileSync('now.md', 'utf8');
-          const lexical = JSON.stringify({
-            root: {
-              children: [{
-                type: 'markdown',
-                version: 1,
-                markdown: md
-              }],
-              direction: null,
-              format: '',
-              indent: 0,
-              type: 'root',
-              version: 1
+
+          async function run() {
+            // Read current now page
+            const page = await api.pages.read({id: process.env.PAGE_ID});
+
+            // Only archive if the page has real content
+            if (page.lexical && page.lexical.includes('markdown')) {
+              const old = JSON.parse(page.lexical);
+              const oldMd = old.root && old.root.children && old.root.children[0] && old.root.children[0].markdown;
+
+              if (oldMd && oldMd.trim().length > 20 && oldMd.trim() !== md.trim()) {
+                // Archive old content as a post with notes tag
+                const date = new Date().toISOString().slice(0,10);
+                await api.posts.add({
+                  title: 'Now — ' + date,
+                  lexical: page.lexical,
+                  status: 'draft',
+                  tags: [{name: 'notes'}]
+                });
+                console.log('Archived old now page as post');
+              }
             }
-          });
-          api.pages.read({id: process.env.PAGE_ID})
-            .then(page => api.pages.edit({
+
+            // Update now page with new content
+            const lexical = JSON.stringify({
+              root: {
+                children: [{
+                  type: 'markdown',
+                  version: 1,
+                  markdown: md
+                }],
+                direction: null,
+                format: '',
+                indent: 0,
+                type: 'root',
+                version: 1
+              }
+            });
+
+            await api.pages.edit({
               id: page.id,
               updated_at: page.updated_at,
               lexical: lexical
-            }))
-            .then(() => console.log('Updated'))
-            .catch(e => { console.error(e); process.exit(1); });
+            });
+            console.log('Updated now page');
+          }
+
+          run().catch(e => { console.error(e); process.exit(1); });
           "
