@@ -1,0 +1,42 @@
+name: Update Now Page
+on:
+  push:
+    paths: ['now.md']
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Update Ghost
+        env:
+          GHOST_URL: ${{ secrets.GHOST_URL }}
+          GHOST_ADMIN_KEY: ${{ secrets.GHOST_ADMIN_KEY }}
+          PAGE_ID: ${{ secrets.NOW_PAGE_ID }}
+        run: |
+          npm install @tryghost/admin-api
+          node -e "
+          const GhostAdminAPI = require('@tryghost/admin-api');
+          const fs = require('fs');
+          const api = new GhostAdminAPI({
+            url: process.env.GHOST_URL,
+            key: process.env.GHOST_ADMIN_KEY,
+            version: 'v5.0'
+          });
+          const md = fs.readFileSync('now.md', 'utf8');
+          api.pages.read({id: process.env.PAGE_ID})
+            .then(page => api.pages.edit({
+              id: page.id,
+              updated_at: page.updated_at,
+              mobiledoc: JSON.stringify({
+                version: '0.3.1',
+                markups: [],
+                atoms: [],
+                cards: [['markdown', {markdown: md}]],
+                sections: [[10, 0]]
+              })
+            }))
+            .then(() => console.log('Updated'))
+            .catch(e => { console.error(e); process.exit(1); });
+          "
