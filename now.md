@@ -1,3 +1,3 @@
-This page is linked with my Obsidian instance, future updates will be automatically pulled from there. 
+This page is linked with my Obsidian instance, future updates will be automatically pulled from there. Working via [GitHub Actions](https://github.com/hexiejexie/now-obsidian).
 
-Currently feeling sleepy. 😴
+Currently feeling motivated. 🫡
