@@ -15,4 +15,3 @@ This is a second test from my phone!
 
 Finally got around to setting up the mikrotik router sitting in my attic for a year already
 
-![[20260327_191045 1.jpg]]
