@@ -9,9 +9,9 @@ This post was archived and tagged.
 -> It worked!
 
 This is a second test from my phone!
--> It worked!
+-> It worked! 🤓
 
-🤓
+Finally got around to setting up the mikrotik router sitting in my attic for a year already.
 
-Finally got around to setting up the mikrotik router sitting in my attic for a year already
+Uf, trying to talk about yourself on a website, making posts about yourself and your life, is something else for a person who values silent inquiry...
 
