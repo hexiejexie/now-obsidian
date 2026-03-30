@@ -15,3 +15,7 @@ Finally got around to setting up the mikrotik router sitting in my attic for a y
 
 Uf, trying to talk about yourself on a website, making posts about yourself and your life, is something else for a person who values silent inquiry...
 
+
+Installing OpenClaw today:
+https://openclaw.ai/
+curl -fsSL https://openclaw.ai/install.sh | bash -s -- --install-method git
