@@ -18,4 +18,5 @@ Uf, trying to talk about yourself on a website, making posts about yourself and 
 
 Installing OpenClaw today:
 https://openclaw.ai/
-curl -fsSL https://openclaw.ai/install.sh | bash -s -- --install-method git
+
+All good, but the free tiers on gemini and gpt aren't really helpful, too many tokens get used for basic prompting 😔
