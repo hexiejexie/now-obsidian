@@ -20,3 +20,5 @@ Installing OpenClaw today:
 https://openclaw.ai/
 
 All good, but the free tiers on gemini and gpt aren't really helpful, too many tokens get used for basic prompting 😔
+
+Just installed Google Gemma 4, damn, how are is google doing this?!
