@@ -18,3 +18,5 @@ Just installed Google Gemma 4, damn, how is Google doing this?!
 Playing some Stronghold Crusader Definitive Edition these days, love this game, my whole childhood 🌞
 
 Started work at Fortaegis 👀
+
+🫪
